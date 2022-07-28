@@ -1,25 +1,74 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import jwt_decode from 'jwt-decode'
+
+import HomePage from './components/pages/HomePage'
+import ProductDetailPage from './components/pages/ProductDetailPage'
+
+import PrivateRoute from './components/common/PrivateRoute'
+
+import { Provider } from 'react-redux'
+import store from './store'
+import setAuthToken from './utils/setAuthToken'
+import { logoutUser, setCurrentUser } from './store/actions/authActions'
+import { getAllProducts } from './store/actions/productActions'
+import UnderDevelopmentPage from './components/pages/UnderDevelopmentPage'
+
+const actionsOnPageLoad = () => {
+  // store.dispatch(getAllProducts())
+  // Check for token
+  if (localStorage.jwtToken) {
+    // Set auth token header auth
+    setAuthToken(localStorage.jwtToken)
+    // Decode token and get user info and expiration
+    const decoded = jwt_decode(localStorage.jwtToken)
+    // Set user and isAuthenticated
+    store.dispatch(setCurrentUser(decoded))
+    // Check for expired token
+    const currentTime = Date.now() / 1000
+    if (decoded.exp < currentTime) {
+      // Logout user
+      store.dispatch(logoutUser())
+      window.location.href = '/login'
+    }
+  }
+}
+actionsOnPageLoad()
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route
+            exact
+            path={'/'}
+            render={(routeProps) => (
+              <HomePage {...routeProps} showForm={false} checkIsAdmin={false} />
+            )}
+          />
+          <Route
+            exact
+            path={'/:productName/:productId'}
+            render={(routeProps) => <ProductDetailPage {...routeProps} />}
+          />
+          <Route
+            exact
+            path={'/underDevelopment'}
+            render={(routeProps) => (
+              <UnderDevelopmentPage {...routeProps} status={'underDevelopment'} />
+            )}
+          />
+          <Route
+            exact
+            path={'/notFound'}
+            render={(routeProps) => <UnderDevelopmentPage {...routeProps} status={'notFound'} />}
+          />
+          <Route render={(routeProps) => <UnderDevelopmentPage {...routeProps} status={'404'} />} />
+        </Switch>
+      </BrowserRouter>
+    </Provider>
+  )
 }
 
-export default App;
+export default App
