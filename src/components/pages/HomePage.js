@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import * as errorActions from '../../store/actions/errorActions'
 import { message } from 'antd'
 import 'antd/dist/antd.css'
-
+import { mockProducts } from '../../seeding'
 // eslint-disable-next-line no-extend-native
 Array.prototype.shuffle = function () {
   let input = this
@@ -30,7 +30,8 @@ Array.prototype.shuffle = function () {
 
 const HomePage = (props) => {
   const dispatch = useDispatch()
-  const products = useSelector((state) => state.products.products)
+  const products = mockProducts
+  //   const products = useSelector((state) => state.products.products)
   const [productsWithDiscount, setProductsWithDiscount] = useState([])
   const [seeMoreDiscountedProd, setSeeMoreDiscountedProd] = useState(10)
   const [loadingDisProd, setLoadingDisProd] = useState(false)
@@ -174,18 +175,6 @@ const HomePage = (props) => {
 
         <InterestedProducts />
         <HotKeyword />
-        <Card
-          key={'prod1'}
-          id={'prod1'}
-          type={'review'}
-          slug={'mock-product'}
-          price={120}
-          discount={12}
-          title={'Mock Product'}
-          image={BottleWarmer}
-          rating={4.5}
-          link={true}
-        />
         {products !== null && (
           <ItemContainer
             title={'Recommended for you'}

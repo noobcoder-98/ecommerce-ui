@@ -13,6 +13,7 @@ import setAuthToken from './utils/setAuthToken'
 import { logoutUser, setCurrentUser } from './store/actions/authActions'
 import { getAllProducts } from './store/actions/productActions'
 import UnderDevelopmentPage from './components/pages/UnderDevelopmentPage'
+import CartPage from './components/pages/CartPage'
 
 const actionsOnPageLoad = () => {
   // store.dispatch(getAllProducts())
@@ -64,6 +65,7 @@ function App() {
             path={'/notFound'}
             render={(routeProps) => <UnderDevelopmentPage {...routeProps} status={'notFound'} />}
           />
+          <PrivateRoute exact path={'/cart'} component={CartPage} />
           <Route render={(routeProps) => <UnderDevelopmentPage {...routeProps} status={'404'} />} />
         </Switch>
       </BrowserRouter>

@@ -57,6 +57,7 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import { message } from 'antd'
 import FormGroup from '@material-ui/core/FormGroup'
 import UnderDevelopmentPage from './UnderDevelopmentPage'
+import { mockProducts } from '../../seeding'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -325,24 +326,24 @@ const ProductPriceInfo = ({ product }) => {
           return <li key={index}>{item}</li>
         })
       : null
-  const colorOption = product.colors.map((item, index) => {
-    return (
-      <div key={index} style={{ marginLeft: '1em', marginTop: '0.8em' }}>
-        {/* <Button variant="contained" color="primary">{item}</Button> */}
-        <ToggleButton
-          size={'small'}
-          style={{ fontSize: '0.75em', padding: '0 0.5em', height: '3em' }}
-          selected
-          value={item}
-          onClick={() => {
-            setColor(item)
-          }}
-        >
-          {item}
-        </ToggleButton>
-      </div>
-    )
-  })
+//   const colorOption = product.colors.map((item, index) => {
+//     return (
+//       <div key={index} style={{ marginLeft: '1em', marginTop: '0.8em' }}>
+//         {/* <Button variant="contained" color="primary">{item}</Button> */}
+//         <ToggleButton
+//           size={'small'}
+//           style={{ fontSize: '0.75em', padding: '0 0.5em', height: '3em' }}
+//           selected
+//           value={item}
+//           onClick={() => {
+//             setColor(item)
+//           }}
+//         >
+//           {item}
+//         </ToggleButton>
+//       </div>
+//     )
+//   })
 
   const groupButton = (price) => {
     if (price > 5) {
@@ -445,7 +446,7 @@ const ProductPriceInfo = ({ product }) => {
               <div className="color-options" style={{ width: '100%' }}>
                 <div style={{ fontWeight: 600 }}>Color options</div>
                 <Grid container spacing={2} style={{ width: 'fit-content' }}>
-                  {colorOption}
+                  {/* {colorOption} */}
                 </Grid>
               </div>
               <div className="add-to-cart">
@@ -1108,16 +1109,17 @@ const ProductDetailPage = (props) => {
   const { productName, productId } = props.match.params
   const [firstImageLoad, setFirstImageLoad] = useState(true)
   // const product = useSelector(state => state.products.products !== null && state.products.products.find(prod => prod.id === productId));
-  const product = useSelector((state) => state.products.currentProduct)
+  //   const product = useSelector((state) => state.products.currentProduct)
+  const product = mockProducts[0]
   const productReviews = useSelector((state) => state.reviews.reviews)
 
   const [currentImg, setCurrentImg] = useState(noPhoto)
   // const [currentImg, setCurrentImg] = useState(typeof(product) !== 'boolean' ? `${process.env.REACT_APP_API}/uploads/${product.photo}` : noPhoto);
-
-  // useEffect(() => {
-  //     dispatch(productActions.getProductById(productId));
-  //     dispatch(reviewActions.getProductReviews(productId));
-  // }, []);
+  console.log(product)
+  useEffect(() => {
+    dispatch(productActions.getProductById(productId))
+    dispatch(reviewActions.getProductReviews(productId))
+  }, [])
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
@@ -1175,9 +1177,9 @@ const ProductDetailPage = (props) => {
         </Grid>
         {product !== null && product !== undefined && <ProductDetailInfo product={product} />}
         {ProductQA()}
-        {product !== null && product !== undefined && (
+        {/* {product !== null && product !== undefined && (
           <ProductReview reviews={productReviews} product={product} />
-        )}
+        )} */}
       </div>
 
       <Footer />

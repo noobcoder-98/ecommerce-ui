@@ -600,7 +600,7 @@ const NavBar = (props) => {
 
             <Typography component={'div'}>
                 <Link to={"#"} onMouseEnter={() => {
-                    setIsLoginTip(true)
+                    setIsLoginTip(false)
                 }} className={classes.removeDefaultLink}>
                     {isLoggedIn ?
                         <span className={classes.navText}>Logout </span>
