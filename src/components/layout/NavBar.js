@@ -54,7 +54,8 @@ const NavBar = (props) => {
   const [search, setSearch] = useState('')
   const [position, setPosition] = useState(false)
 
-  const cartQuantity = 10
+  const cartQuantity = useSelector(state => state.cart.size)
+  console.log(cartQuantity)
   const isLoggedIn = useSelector((state) => state.auth.isAuthenticated)
   const allProducts = useSelector((state) => state.products.products)
 

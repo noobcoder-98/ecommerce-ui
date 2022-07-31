@@ -8,6 +8,7 @@ import {
 import CartItem from '../../models/cart-item'
 
 const initialState = {
+  size: 0,
   items: {},
   totalAmount_discounted: 0,
   totalAmount: 0,
@@ -21,6 +22,7 @@ export default (state = initialState, action) => {
       const prodPrice = addedProduct.price
       const prod = action.product
       const prodId = prod.id
+      const size = state.size + 1
       // const disPrice = prodPrice;
       let disPrice =
         parseFloat(prodPrice) - parseFloat(prodPrice) * (parseFloat(prod.discount) / 100)
@@ -55,12 +57,12 @@ export default (state = initialState, action) => {
       }
       let st = {
         ...state,
+        size,
         items: { ...state.items, [prodId]: updatedOrNewCartItem },
         totalAmount_discounted: state.totalAmount_discounted + disPrice,
         totalAmount: state.totalAmount + prodPrice,
       }
       localStorage.setItem('cart', JSON.stringify(st))
-
       return st
 
     case REMOVE_FROM_CART:
