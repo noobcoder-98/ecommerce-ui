@@ -86,7 +86,6 @@ const CartPage = (props) => {
         }
     );
 
-
     const itemList = cartItems.map((item, index) => {
         return (
             <Card
@@ -97,7 +96,8 @@ const CartPage = (props) => {
                 name={item.product.name}
                 id={item.product.id}
                 title={item.product.name}
-                image={item.product.photo === "no-photo.jpg" ? noPhoto : `${process.env.REACT_APP_API}/uploads/${item.product.photo}`}
+                // image={item.product.photo === "no-photo.jpg" ? noPhoto : `${process.env.REACT_APP_API}/uploads/${item.product.photo}`}
+                image={BottleWarmer}
                 soldBy={item.product.shop.name}
                 price={item.product.price}
                 discount={item.product.discount}

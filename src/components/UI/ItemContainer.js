@@ -66,7 +66,7 @@ const ItemContainer = (props) =>{
                             variant="outlined"
                             color="primary"
                             onClick={props.seeMore !== undefined ? props.seeMore : null}
-                            style={{fontSize: '0.7em', padding: '0.5em', paddingLeft: '4em', paddingRight: '4em', marginBottom: '1.7em', textTransform: 'lowercase'}}
+                            style={{ padding: '0.5em', paddingLeft: '4em', paddingRight: '4em', marginBottom: '1.7em', textTransform: 'lowercase'}}
                             disabled={props.loading !== undefined ? props.loading : false}
                         >
                             {props.loading !== undefined ? (props.loading ? "loading": "See more") : "See more"}

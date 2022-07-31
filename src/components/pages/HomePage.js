@@ -81,11 +81,7 @@ const HomePage = (props) => {
               price={prod.price}
               discount={prod.discount}
               title={prod.name}
-              image={
-                prod.photo === 'no-photo.jpg'
-                  ? BottleWarmer
-                  : `${process.env.REACT_APP_API}/uploads/${prod.photo}`
-              }
+              image={BottleWarmer}
               sold={Math.floor(Math.random() * 50) + 50} // picking random num since this feature isn't implemented yet
               hot={true}
               timeInMilliSec={(Math.floor(Math.random() * 10) + 2) * 100000} // 50 seconds
@@ -110,11 +106,7 @@ const HomePage = (props) => {
               price={prod.price}
               discount={prod.discount !== undefined ? prod.discount : 0}
               title={prod.name}
-              image={
-                prod.photo === 'no-photo.jpg'
-                  ? BottleWarmer
-                  : `${process.env.REACT_APP_API}/uploads/${prod.photo}`
-              }
+              image={BottleWarmer}
               rating={prod.averageRating}
               link={true}
             />
@@ -134,7 +126,7 @@ const HomePage = (props) => {
 
       {/*Item container takes a list of products as an array*/}
       <div style={{ margin: '0 5%' }}>
-        <ItemContainer title={'PRODUCTS YOU HAVE LOOKED FOR'}>
+        {/* <ItemContainer title={'PRODUCTS YOU HAVE LOOKED FOR'}>
           <Card
             type={'default'}
             price={990000}
@@ -159,7 +151,7 @@ const HomePage = (props) => {
             image={BottleWarmer}
             link={false}
           />
-        </ItemContainer>
+        </ItemContainer> */}
         <ItemContainer
           seeMore={() => {
             setSeeMoreDiscountedProd((val) => val + 10)
@@ -173,8 +165,8 @@ const HomePage = (props) => {
           {renderDiscountedProd()}
         </ItemContainer>
 
-        <InterestedProducts />
-        <HotKeyword />
+        {/* <InterestedProducts /> */}
+        {/* <HotKeyword /> */}
         {products !== null && (
           <ItemContainer
             title={'Recommended for you'}

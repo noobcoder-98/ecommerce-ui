@@ -3,12 +3,16 @@ import { SET_CURRENT_USER, SET_CURRENT_USER_INFO } from '../actions/authActions'
 
 import isEmpty from '../../validation/is-empty'
 
+// const initialState = {
+//   isAuthenticated: false,
+//   user: {},
+//   userData: {},
+// }
 const initialState = {
-  isAuthenticated: false,
+  isAuthenticated: true,
   user: {},
   userData: {},
 }
-
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = initialState, action) {
   switch (action.type) {

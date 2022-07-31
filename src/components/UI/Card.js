@@ -61,7 +61,6 @@ const Card = (props) => {
   useEffect(() => {
     message.destroy()
   }, [])
-
   const type1 = (
     <Ripples>
       <Link
@@ -437,7 +436,7 @@ const Card = (props) => {
       case 'review':
         return type3
       case 'cart':
-        return
+        return type3
       default:
         return type1
     }

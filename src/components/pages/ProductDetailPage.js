@@ -210,7 +210,7 @@ const ImageList = ({ product, setCurrentImg }) => {
   return (
     <div className={classes.image}>
       <List component="nav" aria-label="product image list">
-        <ListItem
+        {/* <ListItem
           button
           onClick={() =>
             product.photo !== 'no-photo.jpg'
@@ -228,7 +228,7 @@ const ImageList = ({ product, setCurrentImg }) => {
             }
             alt={'listItemImage'}
           />
-        </ListItem>
+        </ListItem> */}
         <ListItem
           button
           onClick={() => setCurrentImg(src)}
@@ -326,24 +326,24 @@ const ProductPriceInfo = ({ product }) => {
           return <li key={index}>{item}</li>
         })
       : null
-//   const colorOption = product.colors.map((item, index) => {
-//     return (
-//       <div key={index} style={{ marginLeft: '1em', marginTop: '0.8em' }}>
-//         {/* <Button variant="contained" color="primary">{item}</Button> */}
-//         <ToggleButton
-//           size={'small'}
-//           style={{ fontSize: '0.75em', padding: '0 0.5em', height: '3em' }}
-//           selected
-//           value={item}
-//           onClick={() => {
-//             setColor(item)
-//           }}
-//         >
-//           {item}
-//         </ToggleButton>
-//       </div>
-//     )
-//   })
+  //   const colorOption = product.colors.map((item, index) => {
+  //     return (
+  //       <div key={index} style={{ marginLeft: '1em', marginTop: '0.8em' }}>
+  //         {/* <Button variant="contained" color="primary">{item}</Button> */}
+  //         <ToggleButton
+  //           size={'small'}
+  //           style={{ fontSize: '0.75em', padding: '0 0.5em', height: '3em' }}
+  //           selected
+  //           value={item}
+  //           onClick={() => {
+  //             setColor(item)
+  //           }}
+  //         >
+  //           {item}
+  //         </ToggleButton>
+  //       </div>
+  //     )
+  //   })
 
   const groupButton = (price) => {
     if (price > 5) {
@@ -461,12 +461,11 @@ const ProductPriceInfo = ({ product }) => {
                       <Button onClick={handleDecrease} style={{ padding: 0, margin: 0 }}>
                         -
                       </Button>
-                      <TextField
+                      <Button
                         variant="outlined"
                         style={{ borderRadius: 0, padding: 0, margin: 0 }}
-                        value={amount}
                         onChange={handleChange}
-                      />
+                      >{amount}</Button>
                       <Button onClick={handleIncrease}>+</Button>
                     </ButtonGroup>
                   </Grid>
@@ -634,7 +633,7 @@ const ProductDetailInfo = ({ product }) => {
   return (
     <div>
       <div className="item-recommandation">
-        <InterestedProducts />
+        {/* <InterestedProducts /> */}
       </div>
       {/* info table block */}
       <div
@@ -1109,13 +1108,15 @@ const ProductDetailPage = (props) => {
   const { productName, productId } = props.match.params
   const [firstImageLoad, setFirstImageLoad] = useState(true)
   // const product = useSelector(state => state.products.products !== null && state.products.products.find(prod => prod.id === productId));
-  //   const product = useSelector((state) => state.products.currentProduct)
-  const product = mockProducts[0]
+    // const product = useSelector((state) => state.products.currentProduct)
+  const product = mockProducts.find(e => e.id === productId)
   const productReviews = useSelector((state) => state.reviews.reviews)
 
-  const [currentImg, setCurrentImg] = useState(noPhoto)
+  const [currentImg, setCurrentImg] = useState(`https://images.unsplash.com/photo-1444065381814-865dc9da92c0`)
   // const [currentImg, setCurrentImg] = useState(typeof(product) !== 'boolean' ? `${process.env.REACT_APP_API}/uploads/${product.photo}` : noPhoto);
-  console.log(product)
+  // console.log(product)
+  console.log(currentImg)
+
   useEffect(() => {
     dispatch(productActions.getProductById(productId))
     dispatch(reviewActions.getProductReviews(productId))
@@ -1125,23 +1126,22 @@ const ProductDetailPage = (props) => {
   }, [])
 
   useEffect(() => {
-    if (product !== null && product !== undefined) {
-      setCurrentImg(
-        product.photo !== 'no-photo.jpg'
-          ? `${process.env.REACT_APP_API}/uploads/${product.photo}`
-          : noPhoto
-      )
-    }
+    // if (product !== null && product !== undefined) {
+    //   setCurrentImg(
+    //     product.photo !== 'no-photo.jpg'
+    //       ? `${process.env.REACT_APP_API}/uploads/${product.photo}`
+    //       : noPhoto
+    //   )
+    // }
     if (product === undefined) {
       props.history.push('/notFound')
     }
+
   }, [product])
 
   return (
     <div style={{ backgroundColor: '#F4F4F4' }}>
       <NavBar {...props} />
-      {/*<h1>{productName}</h1>*/}
-      {/*<h1>{productId}</h1>*/}
       <div className={classes.root} style={{ paddingBottom: '1em' }}>
         <Grid container className={classes.grid} style={{ margin: 0, marginTop: '2em' }}>
           <Grid item container xs={5} spcaing={0} style={{ paddingLeft: 0, paddingRight: 0 }}>

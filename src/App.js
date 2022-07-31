@@ -14,6 +14,8 @@ import { logoutUser, setCurrentUser } from './store/actions/authActions'
 import { getAllProducts } from './store/actions/productActions'
 import UnderDevelopmentPage from './components/pages/UnderDevelopmentPage'
 import CartPage from './components/pages/CartPage'
+import Checkout from './components/pages/Checkout'
+import DashboardPage from './components/pages/DashboardPage'
 
 const actionsOnPageLoad = () => {
   // store.dispatch(getAllProducts())
@@ -48,6 +50,8 @@ function App() {
               <HomePage {...routeProps} showForm={false} checkIsAdmin={false} />
             )}
           />
+          <PrivateRoute exact path={'/dashboard/:type'} component={DashboardPage} />
+
           <Route
             exact
             path={'/:productName/:productId'}
@@ -66,6 +70,7 @@ function App() {
             render={(routeProps) => <UnderDevelopmentPage {...routeProps} status={'notFound'} />}
           />
           <PrivateRoute exact path={'/cart'} component={CartPage} />
+          <PrivateRoute exact path={'/checkout'} component={Checkout} />
           <Route render={(routeProps) => <UnderDevelopmentPage {...routeProps} status={'404'} />} />
         </Switch>
       </BrowserRouter>
